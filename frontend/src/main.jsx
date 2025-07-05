@@ -25,7 +25,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <GoogleOAuthProvider clientId="382835331704-4188ftujg7cgujrqkhgoc7ltkljbjqb5.apps.googleusercontent.com">
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
         <AuthProvider>
           <App />
         </AuthProvider>

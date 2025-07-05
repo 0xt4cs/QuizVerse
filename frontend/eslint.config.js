@@ -10,7 +10,10 @@ export default [
     files: ['**/*.{js,jsx}'],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
       parserOptions: {
         ecmaVersion: 'latest',
         ecmaFeatures: { jsx: true },
@@ -33,6 +36,18 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
+      // Additional production-ready rules
+      'no-console': process?.env?.NODE_ENV === 'production' ? 'warn' : 'off',
+      'no-debugger': process?.env?.NODE_ENV === 'production' ? 'error' : 'off',
+      'no-unused-vars': ['warn', { 
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_' 
+      }],
+      'prefer-const': 'error',
+      'no-var': 'error',
+      'object-shorthand': 'error',
+      'prefer-arrow-callback': 'error',
+      'react/prop-types': 'warn',
     },
   },
 ]

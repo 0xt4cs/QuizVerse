@@ -5,6 +5,7 @@ import FooterName from "../footer/footerName";
 import Loading from "../ui/loading";
 import he from "he";
 import Homebtn from "../ui/home";
+import { API_ENDPOINTS, getAuthHeaders } from "../../config/api";
 
 const Hard = () => {
   const [questions, setQuestions] = useState([]);
@@ -16,10 +17,8 @@ const Hard = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/quiz/hard", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
-          },
+        const response = await axios.get(API_ENDPOINTS.QUIZ.HARD, {
+          headers: getAuthHeaders(),
         });
         setQuestions(response.data.questions);
         setLoading(false);
@@ -50,11 +49,11 @@ const Hard = () => {
   const saveScoreToBackend = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/scores",
+        API_ENDPOINTS.SCORES.SAVE,
         { score, difficulty: "hard" },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwtToken")}`,
+            ...getAuthHeaders(),
             "Content-Type": "application/json",
           },
         }
